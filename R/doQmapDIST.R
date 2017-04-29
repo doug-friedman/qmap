@@ -25,7 +25,7 @@ doQmapDIST.matrix <- function(x,fobj,...){
 ###
 ### x: matrix with N columns
   if(ncol(x)!=nrow(fobj$par))
-    stop("'ncol(x)' and 'nrow(fobj$par)' should be eaqual\n")  
+    stop("'ncol(x)' and 'nrow(fobj$par)' should be equal\n")  
   NN <- ncol(x)
   hind <- 1:NN
   names(hind) <- colnames(x)

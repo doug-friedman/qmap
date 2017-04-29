@@ -36,7 +36,7 @@ doQmapQUANT.default <- function(x,fobj,type=c("linear","tricub"),...){
 
 doQmapQUANT.matrix <- function(x,fobj,...){
   if(ncol(x)!=ncol(fobj$par$modq))
-    stop("'ncol(x)' and 'nrow(fobj$par$modq)' should be eaqual\n")  
+    stop("'ncol(x)' and 'nrow(fobj$par$modq)' should be equal\n")  
   NN <- ncol(x)
   hind <- 1:NN
   names(hind) <- colnames(x)

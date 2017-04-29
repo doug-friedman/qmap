@@ -21,7 +21,7 @@ doQmapSSPLIN.default <- function(x,fobj,...){
 
 doQmapSSPLIN.matrix <- function(x,fobj,...){
   if(ncol(x)!=length(fobj$par))
-    stop("'ncol(x)' and 'nrow(fobj$par$modq)' should be eaqual\n")  
+    stop("'ncol(x)' and 'nrow(fobj$par$modq)' should be equal\n")  
   NN <- ncol(x)
   hind <- 1:NN
   names(hind) <- colnames(x)

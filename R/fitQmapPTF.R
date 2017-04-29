@@ -52,7 +52,7 @@ fitQmapPTF.default <- function(obs,mod,
     obsq <- quantile(obs,probs=seq(0,1,by=qstep),type=8, names=F)
     modq <- quantile(mod,probs=seq(0,1,by=qstep),type=8, names=F)
   } else {
-    stop("'qstep' shoub be NULL or in the 'qstep < 1 & qstep > 0' intervall")
+    stop("'qstep' should be NULL or in the 'qstep < 1 & qstep > 0' interval")
   }
   if(is.numeric(wet.day)){
     q0 <- obsq>=wet.day

@@ -31,7 +31,7 @@ fitQmapDIST.default <- function(obs,mod,distr="berngamma",start.fun,
       obs <- quantile(obs,probs=seq(0,1,by=qstep),type=8, names=F)
       mod <- quantile(mod,probs=seq(0,1,by=qstep),type=8, names=F)
     } else{
-      stop("'qstep' shoub be NULL or in the 'qstep < 1 & qstep > 0' intervall")
+      stop("'qstep' should be NULL or in the 'qstep < 1 & qstep > 0' interval")
     }
   }
   start.fun <- if(missing(start.fun)){
