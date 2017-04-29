@@ -42,15 +42,15 @@ fitQmapPTF.default <- function(obs,mod,
   if(is.null(qstep)){
     if(length(obs)!=length(mod)){
       hn <- min(length(obs),length(mod))
-      obsq <- quantile(obs,seq(0,1,length.out=hn),type=8)
-      modq <- quantile(mod,seq(0,1,length.out=hn),type=8)
+      obsq <- quantile(obs,seq(0,1,length.out=hn),type=8, names=F)
+      modq <- quantile(mod,seq(0,1,length.out=hn),type=8, names=F)
     } else {
-      obsq <- sort(obs)
-      modq <- sort(mod)
+      obsq <- sort(obs, method="quick")
+      modq <- sort(mod, method="quick")
     }
   } else if(qstep<1&qstep>0) {
-    obsq <- quantile(obs,probs=seq(0,1,by=qstep),type=8)
-    modq <- quantile(mod,probs=seq(0,1,by=qstep),type=8)
+    obsq <- quantile(obs,probs=seq(0,1,by=qstep),type=8, names=F)
+    modq <- quantile(mod,probs=seq(0,1,by=qstep),type=8, names=F)
   } else {
     stop("'qstep' shoub be NULL or in the 'qstep < 1 & qstep > 0' intervall")
   }
@@ -114,23 +114,26 @@ fitQmapPTF.default <- function(obs,mod,
                        power.x0=c(a=1,b=1,x0=0),
                        power=c(a=1,b=1),
                        linear={
-                         pp <- coef(lm(obsq~modq))
+                         #pp <- coef(lm(obsq~modq))
+                         pp = coef(fastLmPure(cbind(1,modq), obsq))
                          names(pp) <- c("a","b")
                          pp},
                        expasympt.x0={
-                         pp <- coef(lm(obsq~modq))
+                         #pp <- coef(lm(obsq~modq))
+                         pp = coef(fastLmPure(cbind(1,modq), obsq))
                          pp <- c(pp,0,0)
                          names(pp) <- c("a","b","x0","tau")
                          pp
                        },
                        expasympt={
-                         pp <- coef(lm(obsq~modq))
+                         #pp <- coef(lm(obsq~modq))
+                         pp = coef(fastLmPure(cbind(1,modq), obsq))
                          pp <- c(pp,0)
                          names(pp) <- c("a","b","tau")
                          pp
                        },
                        scale=c(b=mean(obsq)/mean(modq))
-                       )
+    )
   }
   mfun <- switch(cost,
                  RSS=function(par,x,y){
@@ -167,7 +170,7 @@ fitQmapPTF.default <- function(obs,mod,
   op <- list(tfun=tfun,
              par=ppar,
              wet.day=wet.day
-             )
+  )
   class(op) <- "fitQmapPTF"
   return(op)  
 }

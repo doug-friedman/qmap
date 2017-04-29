@@ -14,11 +14,11 @@ fitQmapQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
     ## quantile algorithm 'type=8' appeares to
     ## be reccomended. See help(quantile) and
     ## Hyndman & Fan (1996) mentioned therein
-    ys <- quantile(ys,seq(0,1,length.out=hn),type=8)
-    xs <- quantile(xs,seq(0,1,length.out=hn),type=8)
+    ys <- quantile(ys,seq(0,1,length.out=hn),type=8, names=F)
+    xs <- quantile(xs,seq(0,1,length.out=hn),type=8, names=F)
   } else {
-    xs <- sort(xs)
-    ys <- sort(ys)
+    xs <- sort(xs, method="quick")
+    ys <- sort(ys, method="quick")
   } 
   if(is.numeric(wet.day)){
     q0 <- ys>=wet.day
@@ -39,15 +39,15 @@ fitQmapQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
   } 
   nn <- length(ys)  
   ## define predictor values at which a fit is wanted
-  newx <- quantile(xs, probs=seq(0,1,by=qstep),type=8)
+  newx <- quantile(xs, probs=seq(0,1,by=qstep),type=8, names=F)
   fit   <- array(NA, dim=c(length(newx),2,nboot))
   if(nboot > 1){
     booty <- replicate(nboot,sample(ys,size=nn,replace=FALSE))
     booty <- apply(booty,2,quantile,
-                   probs=seq(0,1,by=qstep),type=8)
+                   probs=seq(0,1,by=qstep),type=8, names=F)
     booty <- rowMeans(booty,na.rm=TRUE)
   } else {
-    booty <- quantile(ys,probs=seq(0,1,by=qstep),type=8)
+    booty <- quantile(ys,probs=seq(0,1,by=qstep),type=8, names=F)
   }
   ppar <- list(modq=matrix(newx,ncol=1),
                fitq=matrix(booty,ncol=1)) 

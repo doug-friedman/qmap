@@ -14,11 +14,11 @@ fitQmapRQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
     ## quantile algorithm 'type=8' appeares to
     ## be reccomended. See help(quantile) and
     ## Hyndman & Fan (1996) mentioned therein
-    ys <- quantile(ys,seq(0,1,length.out=hn),type=8)
-    xs <- quantile(xs,seq(0,1,length.out=hn),type=8)
+    ys <- quantile(ys,seq(0,1,length.out=hn),type=8, names=F)
+    xs <- quantile(xs,seq(0,1,length.out=hn),type=8, names=F)
   } else {
-    xs <- sort(xs)
-    ys <- sort(ys)
+    xs <- sort(xs, method="quick")
+    ys <- sort(ys, method="quick")
   } 
   if(is.numeric(wet.day)){
     q0 <- ys>=wet.day
@@ -39,29 +39,30 @@ fitQmapRQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
   } 
   nn <- length(ys)  
   ## define predictor values at which a fit is wanted
-  newx <- quantile(xs, probs=seq(0,1,by=qstep),type=8)
+  newx <- quantile(xs, probs=seq(0,1,by=qstep),type=8, names=F)
   fit   <- array(NA, dim=c(length(newx),2,nboot))
   nlls2 <- min(nlls, nn)
   for (j in 1:nboot) {
     if(nboot==1){
-      xss <- sort.default(xs)
-      yss <- sort.default(ys)
+      xss <- sort.default(xs, method="quick")
+      yss <- sort.default(ys, method="quick")
     } else {
-      xss <- sort.default(sample(xs, size=nn, replace=FALSE))
-      yss <- sort.default(sample(ys, size=nn, replace=FALSE))
+      xss <- sort.default(sample(xs, size=nn, replace=FALSE), method="quick")
+      yss <- sort.default(sample(ys, size=nn, replace=FALSE), method="quick")
     }
     for (i in 1:length(newx)) {
       xc     <- xss - newx[i]
-      mdist  <- sort.default(abs(xc))[nlls2]
+      mdist  <- sort.default(abs(xc), method="quick")[nlls2]
       k      <- abs(xc) <= mdist
       xc     <- cbind(1, xc[k])
-      a      <- t.default(xc) %*% xc
-      if ( abs(d <- a[1,1]*a[2,2] - a[1,2]*a[2,1]) < 1e-10 )  # singular? <=> det(x^tx)=0?
-        fit[i,1,j] <- mean(yss[k])
-      else {
-        b         <- t.default(xc) %*% yss[k]
-        fit[i,,j] <- c(b[1]*a[2,2]-b[2]*a[1,2], b[2]*a[1,1]-b[1]*a[2,1]) / d
-      }
+      
+      # MUCH FASTER MATRIX SOLVER
+      a = crossprod(xc)
+      det_a = a[1,1]*a[2,2] - a[1,2]*a[2,1]
+      b = crossprod(xc, yss[k])
+      
+      if(abs(det_a) < 1e-10){   fit[i,1,j] <- mean(yss[k])
+      } else { fit[i,,j] <- as.vector(solve(a, b)) }
     }
   }
   if (!is.null(wet.day))

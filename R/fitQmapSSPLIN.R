@@ -13,11 +13,11 @@ fitQmapSSPLIN.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,spline.par,...
     ## quantile algorithm 'type=8' appeares to
     ## be reccomended. See help(quantile) and
     ## Hyndman & Fan (1996) mentioned therein
-    ys <- quantile(ys,seq(0,1,length.out=hn),type=8)
-    xs <- quantile(xs,seq(0,1,length.out=hn),type=8)
+    ys <- quantile(ys,seq(0,1,length.out=hn),type=8, names=F)
+    xs <- quantile(xs,seq(0,1,length.out=hn),type=8, names=F)
   } else {
-    xs <- sort(xs)
-    ys <- sort(ys)
+    xs <- sort(xs, method="quick")
+    ys <- sort(ys, method="quick")
   } 
   if(is.numeric(wet.day)){
     q0 <- ys>=wet.day
@@ -37,11 +37,11 @@ fitQmapSSPLIN.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,spline.par,...
     stop("'wet.day' should be 'numeric' or 'logical'")
   } 
   xs <- if(!is.null(qstep)){
-    quantile(xs, probs=seq(0,1,by=qstep),type=8) 
-  } else sort(xs)
+    quantile(xs, probs=seq(0,1,by=qstep),type=8, names=F) 
+  } else sort(xs, method="quick")
   ys <- if(!is.null(qstep)){
-    quantile(ys, probs=seq(0,1,by=qstep),type=8)    
-  } else sort(ys)
+    quantile(ys, probs=seq(0,1,by=qstep),type=8, names=F)    
+  } else sort(ys, method="quick")
   if(missing(spline.par))
     spline.par <- list()
   spline.par$x <- xs
