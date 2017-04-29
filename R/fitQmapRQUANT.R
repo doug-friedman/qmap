@@ -47,8 +47,8 @@ fitQmapRQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
       xss <- sort.default(xs, method="quick")
       yss <- sort.default(ys, method="quick")
     } else {
-      xss <- sort.default(sample(xs, size=nn, replace=FALSE), method="quick")
-      yss <- sort.default(sample(ys, size=nn, replace=FALSE), method="quick")
+      xss <- sort.default(sample(xs, size=nn, replace=TRUE), method="quick") # Bootstrap uses replacement
+      yss <- sort.default(sample(ys, size=nn, replace=TRUE), method="quick") # Bootstrap uses replacement
     }
     for (i in 1:length(newx)) {
       xc     <- xss - newx[i]
