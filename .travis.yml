@@ -4,6 +4,8 @@ language: r
 
 sudo: false
 
+cache: packages
+
 include:
 - r: release
 - r: oldrel
