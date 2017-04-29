@@ -9,3 +9,6 @@ cache: packages
 include:
 - r: release
 - r: oldrel
+
+after_success:
+- Rscript -e 'covr::codecov()'
