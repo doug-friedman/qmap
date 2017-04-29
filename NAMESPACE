@@ -69,5 +69,3 @@ importFrom("stats", "approx", "coef", "dexp", "dgamma", "dlnorm",
            "plnorm", "predict", "pweibull", "qexp", "qgamma", "qlnorm",
            "quantile", "qweibull", "rexp", "rgamma", "rlnorm", "runif",
            "rweibull", "sd", "smooth.spline", "splinefun", "var")
-
-importFrom("RcppEigen", "fastLmPure") # used to speed up regression fitting in fitQMAPPTF
