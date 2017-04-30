@@ -43,7 +43,7 @@ fitQmapQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
   nn <- length(ys)  
   ## define predictor values at which a fit is wanted
   newx <- quantile(xs, probs=seq(0,1,by=qstep),type=8, names=F)
-  fit   <- array(NA, dim=c(length(newx),2,nboot))
+  #fit   <- array(NA, dim=c(length(newx),2,nboot))
   if(nboot > 1){
     booty <- replicate(nboot,sample(ys,size=nn,replace=TRUE))
     booty <- apply(booty,2,quantile,
