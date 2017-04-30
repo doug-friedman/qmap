@@ -11,7 +11,7 @@ modv = modprecip[1:50,2]
 quant.fit = fitQmapQUANT(obsv, modv)
 
 
-test_that("coeffcients of power transfer functions", {
+test_that("fitted values", {
   expect_equal(quant.fit$par$modq[1,1], 10.55, tolerance=1e-7)
   expect_equal(quant.fit$par$fitq[1,1], 0.1,  tolerance=1e-7)
 })
@@ -33,8 +33,8 @@ test_that("unequal length obs/mod vectors", {
 })
 
 test_that("wet day options", {
-  expect_named(fitQmapQUANT.default(obsv, modv, wet.day=T))
-  expect_named(fitQmapQUANT.default(obsv, modv, wet.day=10))
+  expect_named(fitQmapQUANT(obsv, modv, wet.day=T))
+  expect_named(fitQmapQUANT(obsv, modv, wet.day=10))
 })
 
 test_that("bootstrap options", {

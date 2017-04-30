@@ -19,6 +19,9 @@ fitQmapSSPLIN.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,spline.par,...
     xs <- sort(xs, method="quick")
     ys <- sort(ys, method="quick")
   } 
+  if(qstep > 1 | qstep < 0){
+    stop("'qstep' should be NULL or in the 'qstep < 1 & qstep > 0' interval")
+  }
   if(is.numeric(wet.day)){
     q0 <- ys>=wet.day
     ys <- ys[q0]
