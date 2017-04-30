@@ -1,10 +1,6 @@
 fitQmapPTF <- function(obs,mod,...)
   UseMethod("fitQmapPTF")
 
-
-fitQmapPTF <- function(obs,mod,...)
-  UseMethod("fitQmapPTF")
-
 fitQmapPTF.default <- function(obs,mod,
                                transfun=c("power","linear","expasympt",
                                  "scale","power.x0","expasympt.x0"),
