@@ -7,3 +7,10 @@ A fork of the qmap R package for Statistical Transformations for Post-Proces
 
 
 All credit for the original code should go to Lukas Gudmundsson. I simply have made edits to improve speed and functionality.
+
+
+Goals:
+- ~~Improve performance~~
+- ~~Add test infrastructure~~
+- ~~Fix error message typos~~
+- ~~Add resampling with replacement to bootstrapped methods~~
