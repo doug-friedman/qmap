@@ -16,7 +16,7 @@ test_that("fitted values", {
 })
 
 test_that("different objects", {
-  expect_named(fitQmapRQUANT(obsv, modv))
+  expect_named(fitQmapRQUANT(obsprecip[1:50,], modprecip[1:50,]))
 })
 
 

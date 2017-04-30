@@ -16,7 +16,7 @@ test_that("fitted values", {
 })
 
 test_that("different objects", {
-  expect_named(fitQmapSSPLIN(obsv, modv))
+  expect_named(fitQmapSSPLIN(obsprecip[1:50,], modprecip[1:50,]))
 })
 
 
