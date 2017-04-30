@@ -8,7 +8,7 @@ modv = modprecip[1:50,2]
 
 
 ## Numeric Accuracy
-RQUANT.fit = fitQmapRQUANT(obsv, modv)
+RQUANT.fit = fitQmapRQUANT(obsv, modv, nboot=1)
 
 
 test_that("fitted values", {
@@ -16,7 +16,7 @@ test_that("fitted values", {
 })
 
 test_that("different objects", {
-  expect_named(fitQmapRQUANT(obsprecip[1:50,], modprecip[1:50,]))
+  expect_named(fitQmapRQUANT(obsprecip[1:50,], modprecip[1:50,], nboot=1))
 })
 
 
@@ -28,12 +28,12 @@ test_that("class of fitQmapRQUANT", {
 
 ## Argument Variations
 test_that("unequal length obs/mod vectors", {
-  expect_named(fitQmapRQUANT(obsv, modv[1:5], wet.day=F))
+  expect_named(fitQmapRQUANT(obsv, modv[1:5], wet.day=F, nboot=1))
 })
 
 test_that("wet day options", {
-  expect_named(fitQmapRQUANT(obsv, modv, wet.day=T))
-  expect_named(fitQmapRQUANT(obsv, modv, wet.day=10))
+  expect_named(fitQmapRQUANT(obsv, modv, wet.day=T, nboot=1))
+  expect_named(fitQmapRQUANT(obsv, modv, wet.day=10, nboot=1))
 })
 
 test_that("bootstrap options", {
