@@ -110,20 +110,17 @@ fitQmapPTF.default <- function(obs,mod,
                        power.x0=c(a=1,b=1,x0=0),
                        power=c(a=1,b=1),
                        linear={
-                         #pp <- coef(lm(obsq~modq))
-                         pp = solveLS(obsq, modq)
+                         pp <- coef(lm(obsq~modq))
                          names(pp) <- c("a","b")
                          pp},
                        expasympt.x0={
-                         #pp <- coef(lm(obsq~modq))
-                         pp = solveLS(obsq, modq)
+                         pp <- coef(lm(obsq~modq))
                          pp <- c(pp,0,0)
                          names(pp) <- c("a","b","x0","tau")
                          pp
                        },
                        expasympt={
-                         #pp <- coef(lm(obsq~modq))
-                         pp = solveLS(obsq, modq)
+                         pp <- coef(lm(obsq~modq))
                          pp <- c(pp,0)
                          names(pp) <- c("a","b","tau")
                          pp
