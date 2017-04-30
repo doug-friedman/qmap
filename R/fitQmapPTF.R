@@ -151,8 +151,8 @@ fitQmapPTF.default <- function(obs,mod,
   }
   opt <- try(do.call(optim,opar),silent=TRUE)
   if(class(opt)=="try-error"){
-    warning("optim 'method'",opar$method,
-            "failed. Optimizing with 'SANN'\n",
+    warning("optim 'method' ",opar$method,
+            " failed. Optimizing with 'SANN'\n",
             "possibly unstable result")
     opar$method <- "SANN"
     opar$lower <- NULL
