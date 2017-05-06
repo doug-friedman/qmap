@@ -47,15 +47,15 @@ fitQmapRQUANT.default <- function(obs,mod,wet.day=TRUE,qstep=0.01,
   nlls2 <- min(nlls, nn)
   for (j in 1:nboot) {
     if(nboot==1){
-      xss <- sort.default(xs, method="quick")
-      yss <- sort.default(ys, method="quick")
+      xss <- if(is.unsorted(xs)) sort.default(xs, method="quick") else xs
+      yss <- if(is.unsorted(ys)) sort.default(ys, method="quick") else ys
     } else {
       xss <- sort.default(sample(xs, size=nn, replace=TRUE), method="quick") # Bootstrap uses replacement
       yss <- sort.default(sample(ys, size=nn, replace=TRUE), method="quick") # Bootstrap uses replacement
     }
     for (i in 1:length(newx)) {
       xc     <- xss - newx[i]
-      mdist  <- sort.default(abs(xc), method="quick")[nlls2]
+      mdist  <- sort.default(abs(xc), partial=nlls2)[nlls2]
       k      <- abs(xc) <= mdist
       xc     <- cbind(1, xc[k])
       
