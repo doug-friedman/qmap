@@ -65,7 +65,7 @@ S3method(fitQmapSSPLIN,matrix)
 importFrom(fitdistrplus,mledist) ## required for fitQmapDIST
 
 importFrom("stats", "approx", "coef", "dexp", "dgamma", "dlnorm",
-           "dweibull", "lm", "na.omit", "optim", "pexp", "pgamma",
+           "dweibull", "lm", ".lm.fit", "na.omit", "optim", "pexp", "pgamma",
            "plnorm", "predict", "pweibull", "qexp", "qgamma", "qlnorm",
            "quantile", "qweibull", "rexp", "rgamma", "rlnorm", "runif",
            "rweibull", "sd", "smooth.spline", "splinefun", "var")
